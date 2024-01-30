@@ -8,11 +8,11 @@ const AppRouter: FC = () => {
     const router = createBrowserRouter(
         [
             {
-                path: '/',
+                path: '/NetTestReact/',
                 element: <MainPage />
             },
             {
-                path: '/modelings/:modelingId',
+                path: '/NetTestReact/modelings/:modelingId',
                 element: <ModelingPage />
             }
         ]

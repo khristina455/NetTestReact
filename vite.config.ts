@@ -6,12 +6,10 @@ export default defineConfig({
   plugins: [react()],
   base: "/NetTestReact", // Замените RepoName на имя вашего репозитория
   server: {
+    port: 3000, 
     proxy: {
-      "/": {
-        target: "http://localhost:8080",
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, "/"),
-      },
-    },
+      // string shorthand: http://localhost:3000/api -> http://localhost:8080/api
+      '/': 'http://localhost:8080',
+    }
   },
 })
