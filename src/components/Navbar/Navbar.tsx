@@ -7,7 +7,7 @@ const Navbar: FC = () => {
     return (
         <Container className='navbar-container'>
             <Row className='navbar'>
-                <Col className='navbar__logo'><a href='/'><img src='/logo.svg' /></a></Col>
+                <Col className='navbar__logo'><a href='/'><img src='/NetTestReact/logo.svg' /></a></Col>
                 <Col className='navbar__text' href='/'>
                  <a href='/'>Услуги</a>
                 </Col>
