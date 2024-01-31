@@ -1,0 +1,9 @@
+.card-container {
+    display: flex;
+    width: 50rem;
+}
+
+.site-body {
+    padding-left: 2rem;
+    padding-top: 1rem;
+}

@@ -1,10 +1,10 @@
 import { FC, useEffect, useState } from 'react'
-import {Card } from 'react-bootstrap'
 import { Modeling, mockModelings } from '../../modules/Mock'
 import { useParams } from 'react-router-dom'
 import Navbar from '../../components/Navbar/Navbar'
 import './ModelingPage.css'
 import Breadcrumbs from '../../components/BreadCrumbs/BreadCrumbs'
+import ModelingCard from '../../components/ModelingCard/ModelingCard'
 
 const ModelingPage: FC = () => {
     const params = useParams();
@@ -30,20 +30,11 @@ const ModelingPage: FC = () => {
     return (
         <div>
         <Navbar />
-        <div style={{marginLeft: "10%", marginTop: "20px"}}>
-        <Breadcrumbs pages={[{link: `/modelings/${params.modelingId}`, title: `${card.name}`}]}/>
+        <div>
+        <Breadcrumbs pages={[{link: `/NetTestReact/modelings/${params.modelingId}`, title: `${card.name}`}]}/>
         </div>
         <div className="site-body">
-            <Card className="card card-page">
-                <Card.Body className="card__content">                
-                    <h3 className="card__name" style={{color: "#00A88E"}}><Card.Title>{card.name}</Card.Title></h3>
-                    <div className="card_description" style={{whiteSpace: "pre-wrap"}}> {card.description}</div>
-                </Card.Body>
-            <Card.Img className="card__image" src={card.image} onError={({ currentTarget }) => {
-                            currentTarget.onerror = null; // prevents looping
-                            currentTarget.src="../default.jpeg";
-                        }}/>
-            </Card>
+            <div className='card-container'><ModelingCard modelingId={card.modelingId} name={card.name} description={card.description} image={card.image} price={card.price} isSingleCard={true}/></div>
         </div>
         </div>
     );

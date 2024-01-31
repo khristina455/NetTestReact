@@ -1,8 +1,11 @@
 .navbar-container {
-    height: 6rem;
+    max-height: 6rem;
     padding: 0.5rem 2rem;
+    width: 100vw;
     border-bottom: 0.5px solid slategray;
     box-sizing: border-box;
+    position: relative;
+    top: 0;
 }
 
 .navbar {

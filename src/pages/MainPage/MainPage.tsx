@@ -14,7 +14,7 @@ const filterMocks = (threats: Modeling[], nameFilter: string, lowPrice: number, 
 }
 
 const getModelingsList = async (name = '', lowPrice: number, highPrice: number): Promise<ModelingsList> => {
-  return fetch(`http://localhost:8080/modelings?from=${lowPrice}&to=${highPrice}`)
+  return fetch(`http://localhost:8080/modelings?query=${name}&from=${lowPrice}&to=${highPrice}`)
     .then((response) => response.json())
     .catch(() => ({ draftId: 0, modelings: filterMocks(mockModelings, name, lowPrice, highPrice) }))
 }
@@ -63,12 +63,12 @@ const MainPage: FC = () => {
             />
           </div>
           <div className="cards-with-search">
-            {!modelings.length && <div>
-              <h1>К сожалению, по вашему запросу ничего не найдено</h1>
+            {!modelings.length && <div style={{paddingLeft:"2rem", paddingTop:"1rem"}}>
+              <h2>К сожалению, по вашему запросу ничего не найдено</h2>
             </div>}
             <div className="cards-list">
               {modelings.map((item) => (
-                <ModelingCard modelingId={item.modelingId} name={item.name} description={item.description} image={item.image} price={item.price}/>
+                <ModelingCard modelingId={item.modelingId} name={item.name} description={item.description} image={item.image} price={item.price} isSingleCard={false}/>
             ))}
             </div>
           </div>
