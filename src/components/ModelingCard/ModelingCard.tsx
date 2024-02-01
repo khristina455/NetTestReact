@@ -15,7 +15,7 @@ interface Props {
 const ModelingCard: FC<Props> = ({modelingId, name, description, image, price, isSingleCard}) => {
     return (
     <Card className='card' >
-        <Card.Img className='card__image' src={image || 'default.webp'} />
+        <Card.Img className='card__image' src={image || '/NetTestReact/default.webp'} />
         <Card.Body className='card__content'>                
             <h3 className='card__name' key={modelingId}><Card.Title>{name}</Card.Title></h3>
             <div className='card__description'> {description}</div>
