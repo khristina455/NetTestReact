@@ -58,12 +58,19 @@ export interface ModelsUserSignUp {
   password: string;
 }
 
-import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, HeadersDefaults, ResponseType } from "axios";
+import type {
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+  HeadersDefaults,
+  ResponseType,
+} from "axios";
 import axios from "axios";
 
 export type QueryParamsType = Record<string | number, any>;
 
-export interface FullRequestParams extends Omit<AxiosRequestConfig, "data" | "params" | "url" | "responseType"> {
+export interface FullRequestParams
+  extends Omit<AxiosRequestConfig, "data" | "params" | "url" | "responseType"> {
   /** set parameter to `true` for call `securityWorker` for this request */
   secure?: boolean;
   /** request path */
@@ -78,11 +85,15 @@ export interface FullRequestParams extends Omit<AxiosRequestConfig, "data" | "pa
   body?: unknown;
 }
 
-export type RequestParams = Omit<FullRequestParams, "body" | "method" | "query" | "path">;
+export type RequestParams = Omit<
+  FullRequestParams,
+  "body" | "method" | "query" | "path"
+>;
 
-export interface ApiConfig<SecurityDataType = unknown> extends Omit<AxiosRequestConfig, "data" | "cancelToken"> {
+export interface ApiConfig<SecurityDataType = unknown>
+  extends Omit<AxiosRequestConfig, "data" | "cancelToken"> {
   securityWorker?: (
-    securityData: SecurityDataType | null,
+    securityData: SecurityDataType | null
   ) => Promise<AxiosRequestConfig | void> | AxiosRequestConfig | void;
   secure?: boolean;
   format?: ResponseType;
@@ -102,8 +113,16 @@ export class HttpClient<SecurityDataType = unknown> {
   private secure?: boolean;
   private format?: ResponseType;
 
-  constructor({ securityWorker, secure, format, ...axiosConfig }: ApiConfig<SecurityDataType> = {}) {
-    this.instance = axios.create({ ...axiosConfig, baseURL: axiosConfig.baseURL || "http://localhost:8080" });
+  constructor({
+    securityWorker,
+    secure,
+    format,
+    ...axiosConfig
+  }: ApiConfig<SecurityDataType> = {}) {
+    this.instance = axios.create({
+      ...axiosConfig,
+      baseURL: axiosConfig.baseURL || "http://localhost:8080",
+    });
     this.secure = secure;
     this.format = format;
     this.securityWorker = securityWorker;
@@ -113,7 +132,10 @@ export class HttpClient<SecurityDataType = unknown> {
     this.securityData = data;
   };
 
-  protected mergeRequestParams(params1: AxiosRequestConfig, params2?: AxiosRequestConfig): AxiosRequestConfig {
+  protected mergeRequestParams(
+    params1: AxiosRequestConfig,
+    params2?: AxiosRequestConfig
+  ): AxiosRequestConfig {
     const method = params1.method || (params2 && params2.method);
 
     return {
@@ -121,7 +143,11 @@ export class HttpClient<SecurityDataType = unknown> {
       ...params1,
       ...(params2 || {}),
       headers: {
-        ...((method && this.instance.defaults.headers[method.toLowerCase() as keyof HeadersDefaults]) || {}),
+        ...((method &&
+          this.instance.defaults.headers[
+            method.toLowerCase() as keyof HeadersDefaults
+          ]) ||
+          {}),
         ...(params1.headers || {}),
         ...((params2 && params2.headers) || {}),
       },
@@ -139,11 +165,15 @@ export class HttpClient<SecurityDataType = unknown> {
   protected createFormData(input: Record<string, unknown>): FormData {
     return Object.keys(input || {}).reduce((formData, key) => {
       const property = input[key];
-      const propertyContent: any[] = property instanceof Array ? property : [property];
+      const propertyContent: any[] =
+        property instanceof Array ? property : [property];
 
       for (const formItem of propertyContent) {
         const isFileType = formItem instanceof Blob || formItem instanceof File;
-        formData.append(key, isFileType ? formItem : this.stringifyFormItem(formItem));
+        formData.append(
+          key,
+          isFileType ? formItem : this.stringifyFormItem(formItem)
+        );
       }
 
       return formData;
@@ -167,11 +197,21 @@ export class HttpClient<SecurityDataType = unknown> {
     const requestParams = this.mergeRequestParams(params, secureParams);
     const responseFormat = format || this.format || undefined;
 
-    if (type === ContentType.FormData && body && body !== null && typeof body === "object") {
+    if (
+      type === ContentType.FormData &&
+      body &&
+      body !== null &&
+      typeof body === "object"
+    ) {
       body = this.createFormData(body as Record<string, unknown>);
     }
 
-    if (type === ContentType.Text && body && body !== null && typeof body !== "string") {
+    if (
+      type === ContentType.Text &&
+      body &&
+      body !== null &&
+      typeof body !== "string"
+    ) {
       body = JSON.stringify(body);
     }
 
@@ -179,7 +219,9 @@ export class HttpClient<SecurityDataType = unknown> {
       ...requestParams,
       headers: {
         ...(requestParams.headers || {}),
-        ...(type && type !== ContentType.FormData ? { "Content-Type": type } : {}),
+        ...(type && type !== ContentType.FormData
+          ? { "Content-Type": type }
+          : {}),
       },
       params: query,
       responseType: responseFormat,
@@ -197,7 +239,9 @@ export class HttpClient<SecurityDataType = unknown> {
  *
  * App for analyze networks payload
  */
-export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
+export class Api<
+  SecurityDataType extends unknown,
+> extends HttpClient<SecurityDataType> {
   api = {
     /**
      * @description Deletes an analysis request for the given user ID
@@ -233,7 +277,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         /** End date in the format '2006-01-02T15:04:05Z' */
         end_date?: string;
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<ModelsAnalysisRequest[], any>({
         path: `/api/analysis-requests`,
@@ -269,7 +313,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @summary Update analysis request status by ID
      * @request PUT:/api/analysis-requests/{requestId}/admin
      */
-    analysisRequestsAdminUpdate: (requestId: number, status: ModelsAnalysisRequest, params: RequestParams = {}) =>
+    analysisRequestsAdminUpdate: (
+      requestId: number,
+      status: ModelsAnalysisRequest,
+      params: RequestParams = {}
+    ) =>
       this.request<Record<string, any>, any>({
         path: `/api/analysis-requests/${requestId}/admin`,
         method: "PUT",
@@ -287,7 +335,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @summary Update analysis request status by client
      * @request PUT:/api/analysis-requests/client
      */
-    analysisRequestsClientUpdate: (status: ModelsAnalysisRequest, params: RequestParams = {}) =>
+    analysisRequestsClientUpdate: (
+      status: ModelsAnalysisRequest,
+      params: RequestParams = {}
+    ) =>
       this.request<Record<string, string>, any>({
         path: `/api/analysis-requests/client`,
         method: "PUT",
@@ -305,7 +356,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @summary Delete modeling from request
      * @request DELETE:/api/analysis-requests/modelings/{modelingId}
      */
-    analysisRequestsModelingsDelete: (modelingId: number, params: RequestParams = {}) =>
+    analysisRequestsModelingsDelete: (
+      modelingId: number,
+      params: RequestParams = {}
+    ) =>
       this.request<Record<string, any>, any>({
         path: `/api/analysis-requests/modelings/${modelingId}`,
         method: "DELETE",
@@ -332,7 +386,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         /** clientQuantity */
         clientQuantity?: string;
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Record<string, any>, any>({
         path: `/api/analysis-requests/modelings/${modelingId}`,
@@ -393,7 +447,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         /** HighPrice string to filter modelings */
         to?: number;
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Record<string, any>, any>({
         path: `/api/modelings`,
@@ -418,15 +472,15 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
          * Modeling image
          * @format binary
          */
-        image: File;
+        image?: File;
         /** Modeling name */
         name: string;
         /** Modeling description */
         description?: string;
         /** Modeling price */
-        price: number;
+        price: string;
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<string, Record<string, any>>({
         path: `/api/modelings`,
@@ -490,7 +544,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         /** image */
         image?: File;
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Record<string, any>, any>({
         path: `/api/modelings/${id}`,
@@ -515,7 +569,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         method: "POST",
         type: ContentType.Json,
         format: "json",
-        body: {modelingId: modelingId},
+        body: { modelingId: modelingId },
         ...params,
       }),
 

@@ -13,6 +13,8 @@ import LoginPage from "./pages/LoginPage/LoginPage.tsx";
 import SignupPage from "./pages/SignupPage/SignupPage.tsx";
 import RequestsPage from "./pages/RequestsPage/RequestsPage.tsx";
 import RequestPage from "./pages/RequestPage/RequestPage.tsx";
+import ModelingsTablePage from "./pages/ModelingsTablePage/ModelingsTablePage.tsx";
+import UpdateModelingPage from "./pages/UpdateModelingPage/UpdateModelingPage.tsx";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +34,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 <Route path="signup/" element={<SignupPage />} />
                 <Route path="requests/" element={<RequestsPage />} />
                 <Route path="requests/:requestId" element={<RequestPage />} />
+                <Route path="modelings/table" element={<ModelingsTablePage />} />
+                <Route path="modelings/update/:modelingId" element={<UpdateModelingPage />} />
               </Routes>
             </Row>
           </Container>
