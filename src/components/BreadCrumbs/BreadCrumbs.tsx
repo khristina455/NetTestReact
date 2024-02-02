@@ -12,7 +12,7 @@ interface BreadcrumbsProps {
 const Breadcrumbs: FC<{ pages: BreadcrumbsProps[] }> = ({ pages }) =>  (
     <Container id="breadcrumbs">
         <Row>
-            <Link to={`/NetTestReact/`} style={{ textDecoration: "None" }} className='breadcrumb-name'>Услуги</Link>
+            <Link to={`/`} style={{ textDecoration: "None" }} className='breadcrumb-name'>Услуги</Link>
             {pages && pages.map((page) => (
                 <Link to={ page.link } style={{ textDecoration: "None"}} className='breadcrumb-name'>{ " / " + page.title }</Link>
             ))}

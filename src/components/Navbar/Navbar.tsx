@@ -1,19 +1,78 @@
-import { FC } from 'react'
+import { FC, useEffect} from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
-import './Navbar.css'
-
+import "./Navbar.css"
+import { useAuth } from '../../hooks/useAuth';
+import { Link, useNavigate } from 'react-router-dom';
+import { api } from '../../api';
 
 const Navbar: FC = () => {
+    const { is_authenticated, user_login, is_moderator, auth, resetUser } = useAuth()
+    const navigate = useNavigate()
+
+    const getData = async () => {
+        await auth()
+    }
+
+    const handleClick = async (e: any) => {
+        e.preventDefault()
+
+        try {
+            const response = await api.api.logoutCreate();
+            resetUser();
+            navigate("/");
+        } catch (error) {
+            resetUser();
+            navigate("/")
+        }
+    }
+
+    useEffect(() => {
+        if (!is_authenticated) {
+            getData().then(() => {
+                console.log(is_authenticated)
+            }).catch((error) => {
+                console.log(error)
+                resetUser();
+            })
+        }
+    }, []);
+
+
+    const getUserNavbar = () => (
+        <Row className="navbar">
+                <Col className='navbar__logo'><Link to='/'><img src='/logo.svg' /></Link></Col>
+                <Link className='navbar__text' to="/modelings/">Услуги</Link>
+                <Link className="navbar__text" to="/requests">Заявки</Link>
+                <button className="navbar__text" onClick={handleClick}>Выйти</button>
+                <div className="navbar__text">{user_login}</div>
+        </Row>
+    )
+
+    const getGuestNavbar = () => (
+        <Row className='navbar'>
+                <Col className='navbar__logo'><Link to='/'><img src='/logo.svg' /></Link></Col>
+                <Col className='navbar__text'>
+                 <Link to='/'>Услуги</Link>
+                </Col>
+                <Col className='navbar__text'>
+                 <Link to='/login'>Войти</Link>
+                </Col>
+        </Row>    
+    )
+
+    const getNavbar = () => {
+        if (!is_authenticated) {
+            return getGuestNavbar()
+        } else {
+            return getUserNavbar()
+        }
+    }
+
     return (
         <Container className='navbar-container'>
-            <Row className='navbar'>
-                <Col className='navbar__logo'><a href='/NetTestReact/'><img src='/NetTestReact/logo.svg' /></a></Col>
-                <Col className='navbar__text' href='/NetTestReact/'>
-                 <a href='/NetTestReact/'>Услуги</a>
-                </Col>
-            </Row>     
+            {getNavbar()}
         </Container>
     )
 }
 
-export default Navbar
+export default Navbar;

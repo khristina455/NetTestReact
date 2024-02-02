@@ -6,6 +6,17 @@ export interface Modeling {
     price: number
 }
 
+export interface ModelingWithFields {
+    modelingId: number
+    name: string
+    description: string
+    image: string
+    price: number
+    nodeQuantity: string
+    queueSize: string
+    clientQuantity: string
+}
+
 export interface ModelingsList {
     modelings: Modeling[]
     draftId: number
