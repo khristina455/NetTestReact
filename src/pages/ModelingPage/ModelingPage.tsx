@@ -12,7 +12,7 @@ const ModelingPage: FC = () => {
     const [card, setCard] = useState<Modeling>(mockModelings[0]);
 
     const getModelingById = async (id: string): Promise<Modeling> =>{
-        return fetch(`http://localhost:8080/modelings/${id}`)
+        return fetch(`http://localhost:8080/api/modelings/${id}`)
             .then((response) => response.json())
             .catch(()=> (+id < mockModelings.length ? mockModelings[+id] : mockModelings[0]))
     }

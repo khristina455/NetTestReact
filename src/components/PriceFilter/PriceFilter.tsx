@@ -8,6 +8,8 @@ export interface Prices {
     priceMaxAbsolute: number
 }
 
+const MAX = 100000
+
 
 interface Props {
     min: number
@@ -26,7 +28,11 @@ export const PriceFilter: FC<Props> = ({min, max, setFilter}) => {
 
     const handleMaxChange = (newValue: number) => {
         setMaxValue(newValue)
-        setFilter(minValue, newValue);
+        if (newValue == 0) {
+            setFilter(minValue, MAX)
+        } else {
+            setFilter(minValue, newValue)
+        }
       }
 
     return (

@@ -9,12 +9,12 @@ import { PriceFilter } from '../../components/PriceFilter/PriceFilter'
 import Breadcrumbs from '../../components/BreadCrumbs/BreadCrumbs'
 
 
-const filterMocks = (threats: Modeling[], nameFilter: string, lowPrice: number, highPrice: number): Modeling[] => {
-  return threats.filter((threat) => threat.name.includes(nameFilter) && threat.price <= highPrice && lowPrice >= lowPrice);
+const filterMocks = (modelings: Modeling[], nameFilter: string, lowPrice: number, highPrice: number): Modeling[] => {
+  return modelings.filter((modeling) => modeling.name.includes(nameFilter) && modeling.price <= highPrice && lowPrice >= lowPrice);
 }
 
 const getModelingsList = async (name = '', lowPrice: number, highPrice: number): Promise<ModelingsList> => {
-  return fetch(`http://localhost:8080/modelings?query=${name}&from=${lowPrice}&to=${highPrice}`)
+  return fetch(`http://localhost:8080/api/modelings?query=${name}&from=${lowPrice}&to=${highPrice}`)
     .then((response) => response.json())
     .catch(() => ({ draftId: 0, modelings: filterMocks(mockModelings, name, lowPrice, highPrice) }))
 }
@@ -56,7 +56,7 @@ const MainPage: FC = () => {
         {loading && <div className="loadingBg"><Spinner animation="border" /></div>}
         <div className="site-body">
           <div className='filter'>
-            <PriceFilter min={1000} max={100000} setFilter={setFilter} />
+            <PriceFilter min={0} max={1000000} setFilter={setFilter} />
             <SearchInput
               value={searchValue}
               setValue={(value) => setSearchValue(value)}
