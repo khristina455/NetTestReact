@@ -97,14 +97,9 @@ const RequestPage: FC = () => {
           </Col>
           <Col>
             {request?.status == "DRAFT" ? (
-              <div>
+              <div className="r-btns">
                 <button
-                  style={{
-                    width: "200px",
-                    backgroundColor: "rgb(46, 44, 44, 0.6)",
-                    fontSize: "1.25em",
-                  }}
-                  className="search-button cart-button"
+                  className="delete-btn"
                   onClick={async () => {
                     const response = await api.api.analysisRequestsDelete();
                     if (response.status == 200) {
@@ -116,13 +111,7 @@ const RequestPage: FC = () => {
                   Удалить
                 </button>
                 <button
-                  style={{
-                    width: "200px",
-                    backgroundColor: "rgb(46, 44, 44, 0.6)",
-                    fontSize: "1.25em",
-                    marginLeft: "10px",
-                  }}
-                  className="search-button cart-button"
+                  className="send-btn"
                   onClick={async () => {
                     const response = await api.api.analysisRequestsClientUpdate(
                       { status: "REGISTERED" }
@@ -142,7 +131,7 @@ const RequestPage: FC = () => {
           </Col>
         </Row>
         <Row>
-          <div style={{ marginTop: "32px", display: "flex", flexWrap: "wrap" }}>
+          <div className="cards-list">
             {modelings.map((item) => (
               <UpdateRequestCard modeling={item} handleDelete={handleDeleteCard} handleUpdate={handleUpdateCard} isDraft={request?.status == "DRAFT"}></UpdateRequestCard>
             ))}

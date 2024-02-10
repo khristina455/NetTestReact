@@ -38,6 +38,8 @@ const DateFilter: FC<Props> = ({ startDate, setStartDate, endDate, setEndDate, s
                 startDate={startDate}
                 endDate={endDate}
                 placeholderText="Дата начала"
+                locale="fi"
+                dateFormat="d.M.yyyy"
             />
             <DatePicker
                 selected={endDate}
@@ -47,6 +49,7 @@ const DateFilter: FC<Props> = ({ startDate, setStartDate, endDate, setEndDate, s
                 endDate={endDate}
                 minDate={startDate}
                 placeholderText="Дата конца"
+                dateFormat="d.M.yyyy"
             />
             <button onClick={send} className='search-button' style={{width: "auto", marginLeft: "2px"}}>Применить</button>
         </Container>

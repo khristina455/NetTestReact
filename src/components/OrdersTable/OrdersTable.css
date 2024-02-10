@@ -1,0 +1,54 @@
+#order-table {
+    border: 2px groove black;
+    border-radius: 10px;
+    text-align: center;
+}
+
+#order-table > .row > .order-table-col > h2,
+#order-table > .row > .order-table-col > a > h2 {
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+#order-table > .row > .order-table-head > h2 {
+    font-weight: 600;
+    font-size: 20px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+#order-table > .row > .col > a {
+    text-decoration: none;
+}
+
+.accept-button {
+    margin-left: 20px;
+    border-radius: 7px;
+    border: 0;
+    width: 110px;
+    height: 40px;
+    font-size: 18px;
+    background-color: #646cff;
+    cursor: pointer;
+}
+
+.accept-button:hover {
+    background-color: #575ee4;
+}
+
+.reject-button {
+    margin-left: 20px;
+    border-radius: 7px;
+    width: 130px;
+    border: 0;
+    height: 40px;
+    font-size: 18px;
+    background-color: rgb(89, 7, 28);
+    color: white;
+    cursor: pointer;
+}
+
+.reject-button:hover {
+    background-color: rgb(62, 2, 17);
+}

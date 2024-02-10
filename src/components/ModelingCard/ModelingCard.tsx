@@ -12,9 +12,10 @@ interface Props {
     image: string
     price: number
     isSingleCard: boolean
+    handleSearch: (value: void) => void;
 }
 
-const ModelingCard: FC<Props> = ({modelingId, name, description, image, price, isSingleCard}) => {
+const ModelingCard: FC<Props> = ({modelingId, name, description, image, price, isSingleCard, handleSearch}) => {
     const { is_authenticated, resetUser } = useAuth();
     return (
     <Card className='card' >
@@ -24,12 +25,7 @@ const ModelingCard: FC<Props> = ({modelingId, name, description, image, price, i
             <div className='card__description'> {description}</div>
             <div className='card__price'>{price}₽</div>
             <button
-                      style={{
-                        width: "200px",
-                        backgroundColor: "rgb(46, 44, 44, 0.6)",
-                        fontSize: "1.25em",
-                      }}
-                      className={`search-button ${!is_authenticated ? "" : "btn-more"}`}
+                      className={`search-button ${!is_authenticated ? "non-button" : "btn-more"}`}
                       onClick={async () => {
                         const response = await api.api.modelingsRequestCreate(
                           modelingId
@@ -38,7 +34,7 @@ const ModelingCard: FC<Props> = ({modelingId, name, description, image, price, i
                         if (response.status === 403) {
                           resetUser();
                         }
-
+                        handleSearch()
                       }}
                     >
                       Добавить в корзину

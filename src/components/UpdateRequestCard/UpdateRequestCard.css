@@ -1,0 +1,35 @@
+.update-card {
+    background-color: #16161a;
+    border-radius: 10px;
+    display: grid;
+    grid-template-areas: "img text"
+                         "params params";
+    gap: 2rem;
+    width: 26rem;
+    padding-right: 1rem;
+}
+
+.up-card__image {
+    grid-area: img;
+    width: 12rem;
+    height: auto;
+    padding-left: 1rem;
+    padding-top: 1rem;
+
+}
+
+.up-card__content {
+    grid-area: text;
+}
+
+.other {
+    grid-area: params;
+    padding-left: 1rem;
+}
+
+.btns {
+    display: flex;
+    flex-direction: row;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}

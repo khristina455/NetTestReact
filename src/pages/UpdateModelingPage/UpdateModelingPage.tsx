@@ -203,14 +203,6 @@ const UpdateModelingPage: FC = () => {
                     required
                   />
                 </Row>
-                <Row>
-                  <div className="left-column">
-                    <label htmlFor="isDeleted">Статус</label>
-                  </div>
-                  <div style={{ marginLeft: "-17%" }}>
-                    {values.isDeleted ? "Удалена" : "Доступна"}
-                  </div>
-                </Row>
               </Col>
               <Col id="product-form-image" style={{ width: "28%" }}>
                 <Row>

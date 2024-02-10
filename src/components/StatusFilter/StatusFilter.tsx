@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import { Container, Row } from "react-bootstrap";
+import "./StatusFilter.css"
 
 export type Filter = {
     Canceled: boolean;
@@ -35,17 +36,10 @@ const StatusFilter: FC<StatusFilterProps> = ({
   return (
     <Container>
       <Row>
-        <div
-          style={{
-            color: "white",
-            fontSize: "16px",
-            fontWeight: "500",
-            marginLeft: "260px",
-          }}
-        >
-          Фильтр по статусу заявки
+        <div className="title-filter">
+          Фильтр по статусу заявки:
         </div>
-        <form style={{ display: "flex", flexDirection: "row", marginLeft: "250px", marginTop: "10px"}}>
+        <form className="choices">
           <div className="radio">
             <label>
               <input

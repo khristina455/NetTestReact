@@ -13,9 +13,10 @@ import { ModelsAnalysisRequest } from "../../api/Api.ts";
 import {
     setEndDate,
     setStartDate,
-    setStatusFilter
+    setStatusFilter,
 } from "../../store/filterRequetsSlice.ts";
 import { useRequestsFilter } from "../../hooks/useRequestsFilter.ts";
+import "./RequestsPage.css"
 
 
 export type Filter = {
@@ -71,7 +72,7 @@ const RequestsPage: FC = () => {
         })
     }
 
-    const processStatusUpdate = async (requestId: number | undefined, newStatus: 'accepted' | 'canceled') => {
+    const processStatusUpdate = async (requestId: number | undefined, newStatus: 'COMPLETE' | 'CANCELED') => {
         try {
             const id: number = requestId ? requestId : 0
             const status: ModelsAnalysisRequest = { status: newStatus }
@@ -115,9 +116,9 @@ const RequestsPage: FC = () => {
             <div className="site-body">
                 <Container style={{ width: "100%" }}>
                     <Row>
-                        <Breadcrumbs pages={[{ link: `/orders`, title: `Мои заявки` }]} />
+                        <Breadcrumbs pages={[{ link: `/requests`, title: `Мои заявки` }]} />
                     </Row>
-                    <Row style={{ display: "flex", flexDirection: "row", marginTop: "20px" }}>
+                    <Row style={{ display: "flex", flexDirection: "row", marginTop: "20px", gap: "10rem"}}>
                         <Col>
                             <DateFilter
                                 startDate={startDateState}
@@ -130,15 +131,14 @@ const RequestsPage: FC = () => {
                         <Col>
                             <FilterOrderStatus state={filter} handleFilterChange={handleFilterChange} />
                         </Col>
-                        {is_moderator && <Col style={{ marginLeft: "20px" }}>
-                            <div>Логин пользователя</div>
+                        {is_moderator && <Col className="search-login">
+                            <div>Логин пользователя:</div>
                             <div>
                                 <InputField
                                     value={login}
-                                    setValue={(value) => {
-                                        console.log(login, value)
-                                        setLogin(value)
-                                    }}
+                                    setValue={
+                                        setLogin
+                                    }
                                 />
                             </div>
                         </Col>}

@@ -1,16 +1,21 @@
 .filter__input {
-    display: flex;
-    flex-direction: row;
-    width: 14rem;
-    gap: 1rem;
+  display: flex;
+  flex-direction: row;
+  width: 14rem;
+  gap: 1rem;
 }
 
 .filter__min {
-    width: 6rem;
-    height: 1rem;
+  width: 6rem;
+  height: 1rem;
 }
 
 .filter__max {
-    width: 6rem;
-    height: 1rem;
+  width: 6rem;
+  height: 1rem;
+}
+
+.filter__button {
+    position: relative;
+    top: -0.6rem;
 }

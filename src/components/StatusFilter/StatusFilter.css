@@ -1,0 +1,10 @@
+.title-filter {
+    font-size: 20px;
+}
+
+.choices {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    margin-top: 1rem;
+}

@@ -1,6 +1,7 @@
 import { ChangeEvent, FC, useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
 import { ModelingWithFields } from "../../modules/Mock.tsx";
+import './UpdateRequestCard.css'
 
 interface Props {
     modeling: ModelingWithFields
@@ -31,27 +32,18 @@ const UpdateRequestCard: FC<Props> = ({modeling, handleDelete, handleUpdate, isD
     };
 
   return (
-    <Card className="cart-card"
-                style={{
-                  justifyContent: "start",
-                  marginLeft: "15px",
-                  height: isDraft ? "440px" : "360px",
-                }}
+    <Card className="update-card"
               >
                 <Card.Img
-                  className="cart-card__image"
-                  src={modeling.image}
-                  onError={({ currentTarget }) => {
-                    currentTarget.onerror = null; // prevents looping
-                    currentTarget.src = "./public/default.jpeg";
-                  }}
+                  className="up-card__image"
+                  src={modeling.image || '/default.webp'}
                 ></Card.Img>
-                <Card.Body className="cart-card__content">
-                  <h3 className="cart-card__name">{modeling.name}</h3>
-                  <h4 className="cart-card_description"> {modeling.price} руб</h4>
+                <Card.Body className="up-card__content">
+                  <h3 className="card__name">{modeling.name}</h3>
+                  <h4 className="card_description"> {modeling.price} руб</h4>
                 </Card.Body>
                 {isDraft ? (
-                  <div>
+                  <div className="other">
                     <div className="left-column">
                       <label htmlFor="price">Количество узлов в сети</label>
                     </div>
@@ -88,7 +80,7 @@ const UpdateRequestCard: FC<Props> = ({modeling, handleDelete, handleUpdate, isD
                       className="custom-input"
                       required
                     />
-                    <button
+                    <div className="btns"><button
                       style={{
                         width: "200px",
                         backgroundColor: "rgb(46, 44, 44, 0.6)",
@@ -110,6 +102,8 @@ const UpdateRequestCard: FC<Props> = ({modeling, handleDelete, handleUpdate, isD
                     >
                       Изменить
                     </button>
+                    </div>
+                    
                   </div>
                 ) : (
                   <div></div>

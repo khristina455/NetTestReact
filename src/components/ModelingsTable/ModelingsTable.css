@@ -1,0 +1,28 @@
+#product-table {
+    border: 2px groove black;
+    border-radius: 10px;
+    text-align: center;
+}
+
+#product-table > .row > .product-table-col > h2,
+#product-table > .row > .product-table-col > a > h2 {
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+#product-table > .row > .product-table-head > h2 {
+    font-weight: 600;
+    font-size: 20px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+
+.update-button {
+    margin-left: 25%;
+}
+
+.product-table-image {
+    width: 80%;
+}

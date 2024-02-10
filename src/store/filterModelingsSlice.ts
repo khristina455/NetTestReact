@@ -4,7 +4,7 @@ const filterSlice = createSlice({
     name: "filter",
     initialState: {
         lowPrice: 0,
-        highPrice: 1000000,
+        highPrice: 100000000,
         searchValue: "",
     },
     reducers: {

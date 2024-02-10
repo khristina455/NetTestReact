@@ -21,20 +21,23 @@ export const PriceFilter: FC<Props> = ({min, max, setFilter}) => {
 
     const handleMinChange = (newValue: number) => {
         setMinValue(newValue)
-        setFilter(newValue, maxValue)
-      }
+    }
 
     const handleMaxChange = (newValue: number) => {
         setMaxValue(newValue)
-        setFilter(minValue, newValue);
-      }
+    }
+
+    const handleClick = () => {
+        setFilter(minValue, maxValue)
+    }
 
     return (
         <div>
             <h3>Фильтр по цене</h3>
             <div className='filter__input'>
-                <input className='filter__min' placeholder="От" onChange={(event => handleMinChange(Number(event.target.value)))}></input>
-                <input className='filter__max' placeholder="До" onChange={(event => handleMaxChange(Number(event.target.value)))}></input>
+                <input className='filter__min' placeholder="От" value={minValue === 0 ? '' : minValue} onChange={(event => handleMinChange(Number(event.target.value)))}></input>
+                <input className='filter__max' placeholder="До" value={maxValue === 100000000 ? '' : maxValue} onChange={(event => handleMaxChange(Number(event.target.value)))}></input>
+                <button className='filter__button' onClick={handleClick}>Применить</button>
             </div>
         </div>
     )

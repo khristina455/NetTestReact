@@ -56,7 +56,7 @@ const LoginPage: FC = () => {
                     <Row style={{ display: "flex" }}>
                         <h1 style={{ fontSize: "36px", fontWeight: "500" }}>Вход в аккаунт</h1>
                     </Row>
-                    <form onSubmit={ handleLogin } id="login-form" style={{ marginTop: "30px" }}>
+                    <form onSubmit={ handleLogin } id="login-form" style={{ marginTop: "20px" }}>
                         <Row>
                             <Col className="left-col">
                                 <h3>Логин пользователя</h3>
